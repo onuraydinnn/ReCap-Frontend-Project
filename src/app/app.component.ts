@@ -1,5 +1,4 @@
-import { Component, ViewChild  } from '@angular/core';
-import { CategoryComponent } from './components/category/category.component';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +7,5 @@ import { CategoryComponent } from './components/category/category.component';
 })
 export class AppComponent {
   title = 'sql';
-  number="";
-  setNumber(value:string) {
-    this.number=value;
-  }
 
 }

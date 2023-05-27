@@ -15,11 +15,11 @@ export class CustomerComponent {
   dataLoaded:boolean = false;
 
   ngOnInit(): void {
-    this.getProducts();
+    this.getCustomers();
   }
 
-  getProducts(){
-    this.customerService.getProducts().subscribe(response=>{
+  getCustomers(){
+    this.customerService.getCustomers().subscribe(response=>{
       this.customers=response.data;
       this.dataLoaded=true;
     })

@@ -12,16 +12,46 @@ export class ColorComponent {
   constructor(private colorService: ColorService) {}
 
   colors: Color[] = [];
+  currentColor:Color;
   dataLoaded:boolean = false;
+  filterText:"";
 
   ngOnInit(): void {
-    this.getProducts();
+    this.getColors();
   }
 
-  getProducts(){
-    this.colorService.getProducts().subscribe(response=>{
+  getColors(){
+    this.colorService.getColors().subscribe(response=>{
       this.colors=response.data;
       this.dataLoaded=true;
     })
   }
+  setCurrentColor(color:Color){
+    this.currentColor = color;
+  }
+
+  getCurrentColorClass(color:Color){
+    if(color==this.currentColor){
+      return "list-group-item active"
+    }
+    else{
+      return "list-group-item"
+    }
+  }
+
+  getAllColorClass(){
+    if(!this.currentColor || this.currentColor.colorId==0){
+      return "list-group-item active"
+    }
+    else{
+      return "list-group-item"
+    }
+  }
+
+  clearColor(){
+    let value:Color={colorId:0,colorName:""};
+    this.currentColor=value;
+  }
+
+
 }

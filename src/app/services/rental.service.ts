@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { RentalResponseModel } from '../models/rentalResponseModel';
-import { RentalDetailResponseModel } from '../models/rentalDetailResponseModel';
+import { ListResponseModel } from '../models/listResponseModel';
+import { Rental } from '../models/rental';
 
 
 @Injectable({
@@ -10,17 +10,20 @@ import { RentalDetailResponseModel } from '../models/rentalDetailResponseModel';
 })
 export class RentalService {
 
-  apiUrl = "https://localhost:44347/api/Rentals/getall";
-  apiUrlRentalDetails = "https://localhost:44347/api/Rentals/getrentaldetails";
+  apiUrl = "https://localhost:44347/api/Rentals/";
+  
 
   constructor(private httpClient:HttpClient) { }
 
-  getProducts(): Observable<RentalResponseModel> {
-    return this.httpClient.get<RentalResponseModel>(this.apiUrl);
+
+  getRentals(): Observable<ListResponseModel<Rental>> {
+    let newPath:string = this.apiUrl+"getrentaldetails";
+    return this.httpClient.get<ListResponseModel<Rental>>(newPath);
   }
 
-  getRentalDetails(): Observable<RentalDetailResponseModel> {
-    return this.httpClient.get<RentalDetailResponseModel>(this.apiUrlRentalDetails);
+  getRentalByCarId(): Observable<Rental> {
+    let newPath:string = this.apiUrl+"getbycarid";
+    return this.httpClient.get<Rental>(newPath);
   }
 
 }

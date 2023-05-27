@@ -3,21 +3,62 @@
     <span class="visually-hidden">Loading...</span>
   </div>
 
-<table *ngIf="dataLoaded==true" class="table">
-    <thead>
-        <tr>
-            <th>rentalId</th> 
-            <th>brandName</th>
-            <th>userName</th>
-            <th>rentDate</th>
-            <th>returnDate</th>
-        </tr>
-    </thead>
-    <tr *ngFor="let rental of rentalDetails">
-        <td>{{rental.rentalId}}</td>
-        <td>{{rental.brandName}}</td>
-        <td>{{rental.userName}}</td>
-        <td>{{rental.rentDate}}</td>
-        <td>{{rental.returnDate}}</td>
-    </tr>
-</table>
+
+  <div class="card mb-3" style="max-width: 800px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img
+      *ngIf="carDetail.imagePath != null"
+      class="card-img-top"
+      style="object-fit: cover"
+      
+      
+      [src]="baseImagePath + carDetail.imagePath"
+    />
+    <img
+      *ngIf="carDetail.imagePath == null"
+      class="card-img-top"
+      style="object-fit: cover"
+      
+      
+      [src]="defaultImagePath"
+    />
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <ul class="list-group list-group-flush text-center">
+            <li class="list-group-item" style="border-width : 0;">
+              <i><b>Model Yılı : </b></i>{{carDetail.modelYear}}
+            </li>
+            <li class="list-group-item" style="border-width : 0;">
+              <i><b>Marka : </b></i>{{carDetail.brandName}}
+            </li>
+            <li class="list-group-item" style="border-width : 0;">
+              <i><b>Renk : </b></i>{{carDetail.colorName}}
+            </li>
+            <li class="list-group-item" style="border-width : 0;">
+              <i><b>Günlük Fiyat : </b></i>{{carDetail.dailyPrice}}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-0">
+      
+        <div class="card-body">
+          <div class="form-group">
+            <label for="">Kiralama Tarihi:</label>
+            <input type="Date" class="form-control" id="pickupDate">
+          </div>
+          <div class="form-group">
+            <label for="">Teslim Tarihi:</label>
+            <input type="Date" class="form-control" id="returnDate"  >
+            <br>
+            <button type="button" class="btn btn-success">Ödeme aşamasına geç</button>
+          </div>
+        </div>
+      
+    </div>
+
+  </div>

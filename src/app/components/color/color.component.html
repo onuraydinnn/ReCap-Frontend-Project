@@ -1,19 +1,26 @@
+<!-- <ul class="list-group">
+    <li (click)="clearColor()"  routerLink="/cars" [class]="getAllColorClass()">Tüm Renkler</li>
+    <li (click)="setCurrentColor(color)" routerLink = "/cars/color/{{color.colorId}}" *ngFor="let color of colors" [class] = "getCurrentColorClass(color)">{{color.colorName}}</li>
+</ul> -->
 
-<div *ngIf="dataLoaded==false" class="spinner-border text-primary" role="status">
-    <span class="visually-hidden">Loading...</span>
-  </div>
 
-<table *ngIf="dataLoaded==true" class="table">
-    <thead>
-        <tr>
-            <th>ColorId</th> 
-            <th>ColorName</th>
-            
-        </tr>
-    </thead>
-    <tr *ngFor="let color of colors">
-        <td>{{color.colorId}}</td>
-        <td>{{color.colorName}}</td>
-        
-    </tr>
-</table>
+<ul class="list-group topsize">
+  
+    <li class="list-group-item text-center text-white bg-dark" (click) = "clearColor()" [class]="getAllColorClass()" routerLink = "/cars">
+        RENKLER
+      </li>
+
+      <div class="mb-3 ">
+        <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Renk Giriniz.">
+      </div>
+    
+    <li class="list-group-item bg-light" 
+    (click) = "setCurrentColor(color)"
+    routerLink = "/cars/color/{{color.colorId}}"
+    *ngFor = "let color of colors | colorFilterPipe:filterText"
+    [class] = "getCurrentColorClass(color)"
+    class = "form-check-label">
+      {{color.colorName}}
+    </li> 
+
+  </ul>

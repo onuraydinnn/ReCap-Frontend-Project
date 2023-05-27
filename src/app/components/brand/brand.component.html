@@ -1,17 +1,29 @@
+<!-- <ul class="list-group">
+    <li  (click)="clearBrand()" routerLink="/cars" [class]="getAllBrandClass()">Tüm Markalar</li>
+    <li (click)="setCurrentBrand(brand)" routerLink = "/cars/brand/{{brand.brandId}}" *ngFor="let brand of brands" [class] = "getCurrentBrandClass(brand)">{{brand.brandName}}</li>
+</ul> -->
 
-<div *ngIf="dataLoaded==false" class="spinner-border text-primary" role="status">
-    <span class="visually-hidden">Loading...</span>
-  </div>
 
-<table *ngIf="dataLoaded==true" class="table">
-    <thead>
-        <tr>
-            <th>brandId</th> 
-            <th>brandName</th>
-        </tr>
-    </thead>
-    <tr *ngFor="let brand of brands">
-        <td>{{brand.brandId}}</td>
-        <td>{{brand.brandName}}</td>
-    </tr>
-</table>
+<ul class="list-group">
+    <li class="list-group-item text-center text-white bg-dark" (click) = "clearBrand()" [class]="getAllBrandClass()" routerLink = "/cars">
+        
+        MARKALAR
+        
+    </li>
+    
+    <div class="mb-3 ">
+      <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="Marka Giriniz.">
+    </div>
+    
+
+    <li class="list-group-item bg-light" 
+     (click) = "setCurrentBrand(brand)"
+    routerLink = "/cars/brand/{{brand.brandId}}"      
+    *ngFor = "let brand of brands | brandFilterPipe:filterText"
+    [class] = "getCurrentBrandClass(brand)"
+    class="form-check-label">
+      {{brand.brandName}}
+    </li>
+
+    
+  </ul>
