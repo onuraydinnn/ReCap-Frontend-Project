@@ -26,17 +26,17 @@
       <img
         *ngIf="car.imagePath != null"
         class="card-img-top"
-        style="object-fit: cover"
+        style="object-fit: contain"
         width="100"
-        height="50%"
+        height="200px"
         [src]="baseImagePath + car.imagePath"
       />
       <img
         *ngIf="car.imagePath == null"
         class="card-img-top"
-        style="object-fit: cover"
+        style="object-fit: contain"
         width="100"
-        height="50%"
+        height="200px"
         [src]="defaultImagePath"
       />
 
@@ -55,7 +55,7 @@
           <i><b>Renk | </b></i>{{ car.colorName }}
         </li>
         <li class="list-group-item">
-          <i><b>Günlük Fiyat: </b></i>{{ car.dailyPrice + " ₺" }}
+          <i><b>Günlük Fiyat: </b></i>{{ car.dailyPrice + " $" }}
         </li>
         
       </ul>

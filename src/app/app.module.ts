@@ -13,6 +13,7 @@ import { ColorComponent } from './components/color/color.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { BrandComponent } from './components/brand/brand.component';
 import { CarDetailComponent } from './components/car-detail/car-detail.component';
+import { PaymentComponent } from './components/payment/payment.component';
 
 import { ToastrModule } from 'ngx-toastr';
 import { BrandFilterPipePipe } from './pipes/brand-filter-pipe.pipe';
@@ -33,7 +34,8 @@ import { CartSummaryComponent } from './components/cart-summary/cart-summary.com
     BrandFilterPipePipe,
     ColorFilterPipePipe,
     CarFilterPipePipe,
-    CartSummaryComponent
+    CartSummaryComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,62 @@
+<div class="container p-0">
+  <div class="card px-4">
+    <p style="font-weight:500;" class="h8 py-3">Ödeme Detayı</p>
+    <div class="row gx-3">
+      <div class="col-12">
+        <div class="d-flex flex-column">
+          <p class="text mb-1">Kart Sahibi</p>
+          <input [(ngModel)]="paymentForm.fullName" class="form-control mb-3" type="text" placeholder="Ad Soyad" />
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="d-flex flex-column">
+          <p class="text mb-1">Kart Numarası</p>
+          <input [(ngModel)]="paymentForm.cardNumber" 
+            class="form-control mb-3"
+            type="text"
+            pattern="[0-9]*"
+            placeholder="16 Haneli Kart Numarası"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+          />
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row g-0">
+          <div style="width: 40px" class="col-3">
+            <label for="exampleFormControlSelect1">Ay</label>
+            <select [(ngModel)]="paymentForm.month" class="form-control" id="exampleFormControlSelect1" >
+              <option *ngFor="let month of months" [ngValue]="month">{{ month }}</option>
+            </select>
+          </div>
+          &nbsp;&nbsp;
+          <div style="width: 80px" class="col-3">
+            <label for="exampleFormControlSelect1">Yıl</label>
+            <select [(ngModel)]="paymentForm.year" class="form-control" id="exampleFormControlSelect1">
+              <option *ngFor="let year of years" [ngValue]="year">{{ year }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="d-flex flex-column">
+          <p class="text mb-1">CVV/CVC</p>
+          <input [(ngModel)]="paymentForm.cvv"
+            class="form-control mb-3 pt-2"
+            type="text"
+            placeholder="***"
+          />
+        </div>
+      </div>
+      <div class="col-12">
+          <button *ngIf="getResponse==false"  (click)="control()" class="btn btn-success mb-3">Ödemeyi Yap</button>
+          <div *ngIf="getResponse==true" class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+      </div>
+
+      
+
+
+    </div>
+  </div>
+</div>

@@ -6,7 +6,7 @@
 
 <ul class="list-group topsize">
   
-    <li class="list-group-item text-center text-white bg-dark" (click) = "clearColor()" [class]="getAllColorClass()" routerLink = "/cars">
+    <li class="list-group-item text-center text-white bg-dark" (click) = "clearColor(); route();" [class]="getAllColorClass()">
         RENKLER
       </li>
 
@@ -15,8 +15,7 @@
       </div>
     
     <li class="list-group-item bg-light" 
-    (click) = "setCurrentColor(color)"
-    routerLink = "/cars/color/{{color.colorId}}"
+    (click) = "setCurrentColor(color); route();"
     *ngFor = "let color of colors | colorFilterPipe:filterText"
     [class] = "getCurrentColorClass(color)"
     class = "form-check-label">

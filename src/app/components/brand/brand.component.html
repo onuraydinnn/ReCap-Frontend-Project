@@ -5,7 +5,7 @@
 
 
 <ul class="list-group">
-    <li class="list-group-item text-center text-white bg-dark" (click) = "clearBrand()" [class]="getAllBrandClass()" routerLink = "/cars">
+    <li class="list-group-item text-center text-white bg-dark" (click) = "clearBrand(); route();" [class]="getAllBrandClass()">
         
         MARKALAR
         
@@ -17,11 +17,10 @@
     
 
     <li class="list-group-item bg-light" 
-     (click) = "setCurrentBrand(brand)"
-    routerLink = "/cars/brand/{{brand.brandId}}"      
-    *ngFor = "let brand of brands | brandFilterPipe:filterText"
-    [class] = "getCurrentBrandClass(brand)"
-    class="form-check-label">
+      (click) = "setCurrentBrand(brand); route();"
+      *ngFor = "let brand of brands | brandFilterPipe:filterText"
+      [class] = "getCurrentBrandClass(brand)"
+      class="form-check-label">
       {{brand.brandName}}
     </li>
 

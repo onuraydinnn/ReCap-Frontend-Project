@@ -7,19 +7,22 @@
   <div class="card mb-3" style="max-width: 800px;">
     <div class="row g-0">
       <div class="col-md-4">
+        
         <img
       *ngIf="carDetail.imagePath != null"
       class="card-img-top"
-      style="object-fit: cover"
-      
+      style="object-fit: contain"
+      width="100"
+      height="200px"
       
       [src]="baseImagePath + carDetail.imagePath"
     />
     <img
       *ngIf="carDetail.imagePath == null"
       class="card-img-top"
-      style="object-fit: cover"
-      
+      style="object-fit: contain"
+      width="100"
+      height="200px"
       
       [src]="defaultImagePath"
     />
@@ -37,25 +40,30 @@
               <i><b>Renk : </b></i>{{carDetail.colorName}}
             </li>
             <li class="list-group-item" style="border-width : 0;">
-              <i><b>Günlük Fiyat : </b></i>{{carDetail.dailyPrice}}
+              <i><b>Günlük Fiyat : </b></i>{{ carDetail.dailyPrice + " $" }}
             </li>
           </ul>
         </div>
       </div>
     </div>
-
+  
     <div class="row g-0">
       
         <div class="card-body">
           <div class="form-group">
             <label for="">Kiralama Tarihi:</label>
-            <input type="Date" class="form-control" id="pickupDate">
+            <input [(ngModel)]="selectedRentDate" type="Date" class="form-control" id="pickupDate">
           </div>
           <div class="form-group">
             <label for="">Teslim Tarihi:</label>
-            <input type="Date" class="form-control" id="returnDate"  >
+            <input [(ngModel)]="selectedReturnDate" type="Date" class="form-control" id="returnDate"  >
             <br>
-            <button type="button" class="btn btn-success">Ödeme aşamasına geç</button>
+            <span><b>Toplam Fiyat : </b>{{calculateTotalPrice() + " $"}}</span>
+            <br>
+            <button *ngIf="buttonSpinner==false"  (click)="check()" type="button" class="btn btn-success">Ödeme aşamasına geç</button>
+            <div *ngIf="buttonSpinner==true" class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
           </div>
         </div>
       

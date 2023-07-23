@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ListResponseModel } from '../models/listResponseModel';
 import { Rental } from '../models/rental';
+import { RentalDetail } from '../models/rentalDetail';
 
 
 @Injectable({
@@ -21,9 +22,9 @@ export class RentalService {
     return this.httpClient.get<ListResponseModel<Rental>>(newPath);
   }
 
-  getRentalByCarId(): Observable<Rental> {
-    let newPath:string = this.apiUrl+"getbycarid";
-    return this.httpClient.get<Rental>(newPath);
+  getRentalsDetailByCarId(carId:number): Observable<ListResponseModel<RentalDetail>> {
+    let newPath:string = this.apiUrl+"getallbycarid?carId="+carId;
+    return this.httpClient.get<ListResponseModel<RentalDetail>>(newPath);
   }
 
 }
