@@ -14,7 +14,7 @@ export class PaymentService {
   constructor(private httpClient:HttpClient) { }
 
 
-  checkPayment(payment:Payment): Observable<ResponseModel> {
+  pay(payment:Payment): Observable<ResponseModel> {
     let newPath:string = this.apiUrl+"pay";
     return this.httpClient.post<ResponseModel>(newPath, payment);
   }

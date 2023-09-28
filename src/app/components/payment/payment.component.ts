@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Payment } from 'src/app/models/payment';
 import { PaymentService } from 'src/app/services/payment.service';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-payment',
@@ -11,60 +11,56 @@ import { PaymentService } from 'src/app/services/payment.service';
 })
 export class PaymentComponent {
 
+  paymentForm:FormGroup;
+
   constructor(private paymentService:PaymentService,
     private toastrService:ToastrService,
-    private router: Router){}
+    private router: Router,
+    private formBuilder:FormBuilder){}
 
   getResponse:boolean = false;
-  paymentForm:Payment={id:0,fullName:"",cardNumber:"",cvv:"",month:0,year:0};
   months: number[] = Array.from({ length: 12 }, (_, index) => index + 1);
   years: number[] = Array.from({ length: 31 }, (_, index) => 2020 + index);
 
   ngOnInit(): void {
-    
-    
+    this.createPaymentForm() 
     
   }
 
  
+  createPaymentForm(){
+    this.paymentForm=this.formBuilder.group({
+      fullName:["", Validators.required],
+      cardNumber:["", Validators.required],
+      month:["", Validators.required],
+      year:["", Validators.required],
+      cvv:["", Validators.required]
+    })}
   
-  checkPayment(){
-    this.paymentService.checkPayment(this.paymentForm).subscribe((response) => {
-      this.getResponse = response.success;
-      this.processPaymentResponse();
-    });
-  }
-
-  control(){
-    if(this.paymentForm.fullName==""){
-      this.toastrService.error("Adınızı giriniz","Error")
+    pay(){
+      if(this.paymentForm.valid){
+        let paymentModel = Object.assign({},this.paymentForm.value);
+        this.paymentService.pay(paymentModel).subscribe(response=>{
+          this.toastrService.success("Araç kiralandı, ana sayfaya gidiliyor", "Success");
+          this.processPaymentResponse();
+          this.getResponse=true; //To make button invisable
+        },responseError=>{
+          if(responseError.error.Errors.length>0){
+            for (let i = 0; i < responseError.error.Errors.length; i++) {
+              this.toastrService.error(responseError.error.Errors[i].ErrorMessage, "Doğrulama hatası");
+            }
+          }
+        })
+      }
+      else{
+        this.toastrService.error("Formunuz eksik", "Error");
+      }
     }
-    else if(this.paymentForm.cardNumber.length!=16){
-      this.toastrService.error("Kart numaranız 16 haneli olmalı","Error")
-    }
-    else if(this.paymentForm.month==0){
-      this.toastrService.error("Ay giriniz","Error")
-    }
-    else if(this.paymentForm.year==0){
-      this.toastrService.error("Yıl giriniz","Error")
-    }
-    else if(this.paymentForm.cvv==""){
-      this.toastrService.error("Güvenlik numarasını giriniz","Error")
-    }
-    else{
-      this.checkPayment()
-    }
-  }
 
   processPaymentResponse(){
-    if (this.getResponse) {
-      this.toastrService.success("Araç kiralandı, ana sayfaya gidiliyor", "Success");
       setTimeout(() => {
         this.router.navigate([""]);
       }, 3000);
-    } else {
-      this.toastrService.error("Hatalı giriş", "Error");
-    }
   }
 
 

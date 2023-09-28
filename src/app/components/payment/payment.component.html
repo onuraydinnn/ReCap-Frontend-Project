@@ -1,62 +1,95 @@
 <div class="container p-0">
   <div class="card px-4">
-    <p style="font-weight:500;" class="h8 py-3">Ödeme Detayı</p>
+    <p style="font-weight: 500" class="h8 py-3">Ödeme Detayı</p>
     <div class="row gx-3">
-      <div class="col-12">
-        <div class="d-flex flex-column">
-          <p class="text mb-1">Kart Sahibi</p>
-          <input [(ngModel)]="paymentForm.fullName" class="form-control mb-3" type="text" placeholder="Ad Soyad" />
-        </div>
-      </div>
-      <div class="col-12">
-        <div class="d-flex flex-column">
-          <p class="text mb-1">Kart Numarası</p>
-          <input [(ngModel)]="paymentForm.cardNumber" 
-            class="form-control mb-3"
-            type="text"
-            pattern="[0-9]*"
-            placeholder="16 Haneli Kart Numarası"
-            oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-          />
-        </div>
-      </div>
-      <div class="col-6">
-        <div class="row g-0">
-          <div style="width: 40px" class="col-3">
-            <label for="exampleFormControlSelect1">Ay</label>
-            <select [(ngModel)]="paymentForm.month" class="form-control" id="exampleFormControlSelect1" >
-              <option *ngFor="let month of months" [ngValue]="month">{{ month }}</option>
-            </select>
-          </div>
-          &nbsp;&nbsp;
-          <div style="width: 80px" class="col-3">
-            <label for="exampleFormControlSelect1">Yıl</label>
-            <select [(ngModel)]="paymentForm.year" class="form-control" id="exampleFormControlSelect1">
-              <option *ngFor="let year of years" [ngValue]="year">{{ year }}</option>
-            </select>
+      <form [formGroup]="paymentForm">
+        <div class="col-12">
+          <div class="d-flex flex-column">
+            <label for="fullName" class="text mb-1">Kart Sahibi</label>
+            <input
+              formControlName="fullName"
+              id="fullName"
+              class="form-control mb-3"
+              type="text"
+              placeholder="Ad Soyad"
+            />
           </div>
         </div>
-      </div>
-      <div class="col-6">
-        <div class="d-flex flex-column">
-          <p class="text mb-1">CVV/CVC</p>
-          <input [(ngModel)]="paymentForm.cvv"
-            class="form-control mb-3 pt-2"
-            type="text"
-            placeholder="***"
-          />
+        <div class="col-12">
+          <div class="d-flex flex-column">
+            <label class="text mb-1">Kart Numarası</label>
+            <input
+              formControlName="cardNumber"
+              id="cardNumber"
+              class="form-control mb-3"
+              type="text"
+              pattern="[0-9]*"
+              placeholder="16 Haneli Kart Numarası"
+              oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-6">
+          <div class="row g-0">
+            <div style="width: 40px" class="col-3">
+              <label for="month">Ay</label>
+              <select
+                formControlName="month"
+                id="month"
+                class="form-control"
+                
+              >
+                <option *ngFor="let month of months">
+                  {{ month }}
+                </option>
+              </select>
+            </div>
+            &nbsp;&nbsp;
+            <div style="width: 80px" class="col-3">
+              <label for="year">Yıl</label>
+              <select
+                formControlName="year"
+                id="year"
+                class="form-control"
+              >
+                <option *ngFor="let year of years">
+                  {{ year }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="d-flex flex-column">
+            <label for="cvv" class="text mb-1">CVV/CVC</label>
+            <input
+              formControlName="cvv"
+              id="cvv"
+              class="form-control mb-3 pt-2"
+              type="text"
+              placeholder="***"
+            />
+          </div>
         </div>
       </div>
+      </form>
       <div class="col-12">
-          <button *ngIf="getResponse==false"  (click)="control()" class="btn btn-success mb-3">Ödemeyi Yap</button>
-          <div *ngIf="getResponse==true" class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Loading...</span>
-          </div>
+        <button
+          *ngIf="getResponse == false"
+          (click)="pay()"
+          class="btn btn-success mb-3"
+        >
+          Ödemeyi Yap
+        </button>
+        <div
+          *ngIf="getResponse == true"
+          class="spinner-border text-primary"
+          role="status"
+        >
+          <span class="visually-hidden">Loading...</span>
+        </div>
       </div>
-
-      
-
-
     </div>
   </div>
 </div>
